@@ -51,7 +51,7 @@
 *
 * @package CampaignMonitorLib
 * @subpackage CMBase
-* @version 1.4.7
+* @version 1.4.8
 * @author Kaiser Shahid <knitcore@yahoo.com> (www.qaiser.net)
 * @copyright 2007-2009
 * @see http://www.campaignmonitor.com/api/
@@ -544,7 +544,7 @@ class CMBase
 *
 * @package CampaignMonitorLib
 * @subpackage CampaignMonitor
-* @version 1.4.7
+* @version 1.4.8
 * @author Kaiser Shahid <knitcore@yahoo.com> (www.qaiser.net) and 
 * Campaign Monitor <support@campaignmonitor.com> 
 * @copyright 2007-2009
@@ -1250,33 +1250,32 @@ class CampaignMonitor extends CMBase
 	
 	function campaignCreate( $client_id, $name, $subject, $fromName, $fromEmail, $replyTo, $htmlUrl, $textUrl, $subscriberListIds, $listSegments )
 	{
-		if ( $client_id == null )
+		if ($client_id == null)
 			$client_id = $this->client_id;
-		
+
 		$_subListIds = '';
-		if ($subscriberListIds != "")
-		{
+		if ($subscriberListIds != "") {
 			$_subListIds = array( 'string' => array() );
-			if ( is_array( $subscriberListIds ) )
-			{
-				foreach ( $subscriberListIds as $lid )
-				{
+			if ( is_array( $subscriberListIds ) ) {
+				foreach ( $subscriberListIds as $lid ) {
 					$_subListIds['string'][] = $lid;
 				}
 			}
 		}
-		
+
 		$_seg = '';
 		if ($listSegments != "")
 		{
-			$_seg = array( 'List' => array() );
-			if ( is_array( $listSegments ) )
-			{
-				foreach ( $listSegments as $seg )
-					$_seg['List'][] = $seg;
+			$_seg = array();
+			if (is_array($listSegments)) {
+				for($i=0; $i < count($listSegments); $i++) {
+					foreach ($listSegments[$i] as $k => $v) {
+						$_seg['List'][$i][$k] = $v;
+					}
+				}
 			}
 		}
-		
+
 		return $this->makeCall( 'Campaign.Create', array(
 			'params' => array(
 				'ClientID' => $client_id
