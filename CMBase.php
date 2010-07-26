@@ -51,13 +51,13 @@
 *
 * @package CampaignMonitorLib
 * @subpackage CMBase
-* @version 1.4.8
 * @author Kaiser Shahid <knitcore@yahoo.com> (www.qaiser.net)
 * @copyright 2007-2009
 * @see http://www.campaignmonitor.com/api/
 */
 
-define( 'PHPVER', phpversion() );
+define('PHPVER', phpversion());
+define('CM_PHP_WRAPPER_VERSION', '1.4.9');
 
 // WARNING: this is needed to keep the socket from apparently hanging (even when it should be done reading)
 // NOTE: using a timeout (SOCKET_TIMEOUT) that's passed when calling fsockopen. safer thing to do.
@@ -134,7 +134,7 @@ class CMBase
 		if ( !isset( $options['header'] ) )
 			$options['header'] = array();
 		
-		$options['header'][] = 'User-Agent: CMBase URL Handler 1.5';
+		$options['header'][] = 'User-Agent: CMBase URL Handler ' . CM_PHP_WRAPPER_VERSION;
 		
 		$postdata = '';
 		$method = 'GET';
@@ -544,7 +544,6 @@ class CMBase
 *
 * @package CampaignMonitorLib
 * @subpackage CampaignMonitor
-* @version 1.4.8
 * @author Kaiser Shahid <knitcore@yahoo.com> (www.qaiser.net) and 
 * Campaign Monitor <support@campaignmonitor.com> 
 * @copyright 2007-2009
