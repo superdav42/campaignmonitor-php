@@ -298,6 +298,7 @@ class CMBase
 		{
 			if ( $this->method == 'soap' )
 			{
+				$this->method = $old_method;
 				$tmp = $this->xml2array( $res, '/soap:Envelope/soap:Body' );
 				if ( !is_array( $tmp ) )
 					return $tmp;
@@ -305,7 +306,10 @@ class CMBase
 					return $tmp[$action.'Response'][$action.'Result'];
 			}
 			else
-				return $this->xml2array($res);
+			{
+				$tmp = $this->xml2array($res);
+				return isset($tmp['Result']) ? $tmp['Result'] : $tmp;
+			}
 		}
 		else
 			return null;
