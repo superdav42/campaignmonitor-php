@@ -835,10 +835,11 @@ class CampaignMonitor extends CMBase
 	 * @return mixed A parsed response from the server, or null if something failed
 	 * @see http://www.campaignmonitor.com/api/method/subscribers-get-single-subscriber/
 	 */
-	function subscriberGetSingleSubscriber($list_id = null, $email)
+	function subscriberGetSingleSubscriber($list_id = null, $email = '')
     {
-        if (!$list_id != null)
+        if ($list_id === null) {
             $list_id = $this->list_id;
+	}
 
         return $this->makeCall( 
         	'Subscribers.GetSingleSubscriber',
