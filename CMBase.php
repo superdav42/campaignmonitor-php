@@ -249,10 +249,8 @@ class CMBase
 				//$this->debug_info['complete_content'] = $ctx;
 			}
 			
-			$pv = PHPVER;
-			
-			// the preferred non-cURL way if user is using PHP 5.x
-			if ( $pv{0} == '5' )
+			// the preferred non-cURL way if user is using >= PHP 5.x
+			if (version_compare(PHPVER, '5.0.0', '>=')) {
 			{
 				$context = stream_context_create( array( 'http' => $ctx ) );
 				$fp = fopen( $url, 'r', false, $context );
@@ -1122,7 +1120,7 @@ class CampaignMonitor extends CMBase
 	/**
 	 * Gets the API key for a Campaign Monitor user, given site URL, username, 
 	 * password. If the user has not already had their API key generated at 
-	 * the time this method is called, the user’s API key will be generated 
+	 * the time this method is called, the userÂ’s API key will be generated 
 	 * and returned by this method.
 	 * 
 	 * @param $site_url The base URL of the site you use to login to 
@@ -1443,7 +1441,7 @@ class CampaignMonitor extends CMBase
 	* @param string $dataType (DataType) Data type of the field. Options are Text, Number, 
 	*				MultiSelectOne, or MultiSelectMany
 	* @param string $Options (Options) The available options for a multi-valued custom field. 
-	*				Options should be separated by a double pipe “||”. This field must be null 
+	*				Options should be separated by a double pipe Â“||Â”. This field must be null 
 	*				for Text and Number custom fields
 	* @return mixed A parsed response from the server, or null if something failed.
 	* @see http://www.campaignmonitor.com/api/method/list-createcustomfield/
